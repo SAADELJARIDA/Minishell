@@ -1,2 +1,2 @@
 # Minishell
-groupe hajar et saad
+groupe hajar et saad Minishell.
