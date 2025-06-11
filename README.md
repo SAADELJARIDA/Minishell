@@ -1,2 +1,2 @@
 # Minishell
-groupe hsennane and sel-jarMinishell.
+groupe hsennane and sel-jari Minishell.
