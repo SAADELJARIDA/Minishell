@@ -3,15 +3,11 @@
 int main()
 {
     char    *input;
-	char *arg[] = {"ls", NULL};
+	char	*arg[] = {"ls", NULL};
+	int		id;
 
-    while (True)
-    {
         input = readline("\033[1;32m➜\033[0m\033[1;36m Minishell@damn:$\033[0m ");
-		if (!strcmp(input, "ls"))
-		{
-			execve("/bin/ls",arg, NULL);
 			free(input);
-		}
-    }
+	rl_clear_history();
+	rl_cleanup_after_signal();
 }
