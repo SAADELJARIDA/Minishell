@@ -17,7 +17,7 @@ RM = rm -f
 all: ${NAME}
 
 ${NAME}: ${OBJ} ${HEADER} ${LIB}
-	${CC} ${OBJ} ${LIB} -o ${NAME}
+	${CC} ${OBJ} ${LIB} -lreadline -o ${NAME}
 
 $(LIB):
 	$(MAKE) -C $(LIB_DIR)

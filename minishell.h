@@ -29,4 +29,5 @@ typedef struct  s_garbage_collector
 
 extern t_garbage_collector *g_free;
 
+void    free_all(char *input);
 #endif
