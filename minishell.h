@@ -30,5 +30,5 @@ typedef struct  s_garbage_collector
 extern t_garbage_collector *g_free;
 
 void    free_all(char *input);
-void    save_garbage(char *tokens, int is_arr);
+void    save_garbage(char **tokens, int is_arr);
 #endif
