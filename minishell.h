@@ -14,8 +14,19 @@
 # include <sys/types.h>
 # include <sys/wait.h>
 # include <unistd.h>
-
+# include "libft/libft.h"
 # define True 1
 # define False 2
+
+char    **lexer(char *input);
+typedef struct  s_garbage_collector
+{
+    int     is_arrof_p;
+    char    *content;
+    char    **d_content;
+    struct s_garbage_collector *next;
+}               t_garbage_collector;
+
+extern t_garbage_collector *g_free;
 
 #endif
