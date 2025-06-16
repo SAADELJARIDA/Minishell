@@ -1,4 +1,4 @@
-SRC = main.c free_all.c lexer.c
+SRC = main.c free_all.c lexer.c save_garbage.c
 
 NAME = minishell
 HEADER = minishell.h

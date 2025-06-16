@@ -4,7 +4,7 @@ void    free_all(char *input)
 {
     char    **temp;
     int     i;
-    t_garbage_collector temp;
+    t_garbage_collector *tmp;
     while (g_free != NULL)
     {
         if (g_free->is_arrof_p == 1)
@@ -20,9 +20,9 @@ void    free_all(char *input)
         }
         else
             free(g_free->content);
-        temp = g_free;
+        tmp = g_free;
         g_free = g_free->next;
-        free(temp);
+        free(tmp);
     }
-    free(g_free);
+    free(input);
 }
