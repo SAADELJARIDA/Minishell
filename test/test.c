@@ -1,9 +1,15 @@
 #include "../minishell.h"
 
+typedef enum    s_token
+{
+    PIPELINE,
+    GREAT,
+    LESS,
+    GREAT_GREAT,
+    LESS_LESS
+}               t_token;
 int main() {
-    char *input;
-    char *env;
-    env = getenv("PATH");
-    printf("%s",env);
-    return 0;
+    t_token token = -1;
+
+    printf("%d");
 }

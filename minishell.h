@@ -1,5 +1,5 @@
-# ifndef MINISHELL_H
-#define MINISHELL_H
+#ifndef MINISHELL_H
+# define MINISHELL_H
 
 # include <errno.h>
 # include <fcntl.h>
@@ -15,20 +15,37 @@
 # include <sys/wait.h>
 # include <unistd.h>
 # include "libft/libft.h"
-# define True 1
-# define False 2
+# define TRUE 1
+# define FALSE 2
 
-char    **lexer(char *input);
-typedef struct  s_garbage_collector
+char	**lexer(char *input);
+
+typedef struct s_garbage_collector
 {
-    int     is_arrof_p;
-    char    *content;
-    char    **d_content;
-    struct s_garbage_collector *next;
-}               t_garbage_collector;
+	int							is_arrof_p;
+	char						*content;
+	char						**d_content;
+	struct s_garbage_collector	*next;
+}				t_garbage_collector;
 
-extern t_garbage_collector *g_free;
+typedef enum e_operator
+{
+	PIPE, // |
+	LESS, // <
+	GREAT, // > 
+	LESS_LESS, // <<
+	GREAT_GREAT, // >>
+}				t_operator;
 
-void    free_all(char *input);
-void    save_garbage(char **tokens, int is_arr);
+typedef struct s_lexer
+{
+	int				i;
+	char			*str;
+	t_operator		op;
+	struct s_lexer	*next;
+}				t_lexer;
+extern t_garbage_collector		*g_free;
+
+void	free_all(char *input);
+void	save_garbage(char **tokens, int is_arr);
 #endif
