@@ -1,53 +1,72 @@
 #include "minishell.h"
-static t_lexer	create_node(t_lexer *head)
-{
-	t_lexer *node;
 
-	node = malloc(sizeof(t_lexer));
-	if (node)
-		exit(0);
-		
+int	is_operator(char *str)
+{
+	if (ft_strncmp("|", str, 2) == 0)
+		return PIPE;
+	else if (ft_strncmp("<", str, 2) == 0)
+		return LESS;
+	else if (ft_strncmp(">", str, 2) == 0)
+		return 1;
+	else if (ft_strncmp("<<", str, 2) == 0)
+		return 1;
+	else if (ft_strncmp(">>", str, 2) == 0)
+		return 1;
 }
-static t_lexer	token_list(char **tokens)
+static void	fill_the_node(t_lexer *node, int op, int i, char *token)
+{
+	if (op != -1)
+	{
+		node->op = op;
+		node->str = NULL;	
+	}
+	else
+	{
+		node->op = -1; // -1 if it's no an operator 
+		node->str = token;	
+	}
+	node->i = i;
+}
+
+static t_lexer *add_node(t_lexer **node)
+{
+	*node = malloc(sizeof(t_lexer));
+	if (*node == NULL)
+	{
+		// free_and_exit();
+		exit(0);
+	}
+	return *node;
+}
+
+static t_lexer	*token_list(char **tokens)
 {
 	t_lexer	*head;
 	t_lexer	*node;
 	int		op;
 	int		i;
 
-	head = node;
+	head = add_node(&node);
 	while (tokens[i] != NULL)
 	{
 		op = is_operator(tokens[i]);
-		if (op != -1)
-		{
-			node->i = i;
-			node->op = op;
-			node->str = NULL;	
-		}
-		else
-		{
-			node->i = i;
-			node->op = -1;
-			node->str = tokens[i];	
-		}
+		fill_the_node(node, op, i, tokens[i]);
 		i++;
 		if (tokens[i] != NULL)
-		{
-			node->next = malloc(sizeof(t_lexer));
-			node = node->next;
-		}
+			node = add_node(node);
 	}
 }
-char    **lexer(char *input)
+t_lexer	*lexer(char *input)
 {
 	int     i;
 	char    **tokens;
-	t_lexer	*node;
 	t_lexer	*head;
 
 	i = 0;
-	tokens = ft_split(input,' ');
+	// reminder : split returns an arry of pointers.
+	tokens = ft_split(input,' '); 
+	head = token_list(tokens);
+	free(tokens);
 	save_garbage(tokens, 1);
 	free(input);
 	return head;

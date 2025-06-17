@@ -18,7 +18,6 @@
 # define TRUE 1
 # define FALSE 2
 
-char	**lexer(char *input);
 
 typedef struct s_garbage_collector
 {
@@ -44,6 +43,7 @@ typedef struct s_lexer
 	t_operator		op;
 	struct s_lexer	*next;
 }				t_lexer;
+t_lexer	*lexer(char *input);
 extern t_garbage_collector		*g_free;
 
 void	free_all(char *input);
