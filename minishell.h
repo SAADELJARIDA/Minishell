@@ -43,9 +43,9 @@ typedef struct s_lexer
 	t_operator		op;
 	struct s_lexer	*next;
 }				t_lexer;
-t_lexer	*lexer(char *input);
-extern t_garbage_collector		*g_free;
 
+extern t_garbage_collector		*g_free;
 void	free_all(char *input);
 void	save_garbage(char **tokens, int is_arr);
+t_lexer	*lexer(char *input);
 #endif
