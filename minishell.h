@@ -29,6 +29,8 @@ typedef struct s_garbage_collector
 
 typedef enum e_operator
 {
+	QUOTE,
+	DOUBLE_QUOTE,
 	PIPE, // |
 	LESS, // <
 	GREAT, // > 

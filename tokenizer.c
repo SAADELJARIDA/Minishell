@@ -1,5 +1,4 @@
 #include "minishell.h"
-
 int	is_operator(char *str)
 {
 	t_operator	op;
@@ -49,44 +48,29 @@ static t_lexer *add_node(t_lexer **node)
 	return (*node);
 }
 
-static t_lexer	*token_list(char **tokens)
+
+int	toknizer(char *input)
 {
+	size_t		start,end;
+	char		c;
+	char		*to_alloc;
+	int			count;
+	t_operator	op;
 	t_lexer	*head;
 	t_lexer	*node;
-	int		i;
 
 	head = add_node(&node);
-	i = 0;
-	while (tokens[i] != NULL)
+	start = 0;
+	while (input[start])
 	{
-		fill_the_node(node, is_operator(tokens[i]), i, tokens[i]);
-		i++;
-		if (tokens[i] != NULL)
-			node = add_node(&(node->next));
+		end = 0;
+		c = input[start];
+		op = is_opperator(c);
+		if (c == ' ')
+			start++;
+		while (op == -1 || c != ' ')
+			end++;
+		to_alloc = ft_substr(input, start, end);
+		fill_the_node(node, is_operator(to_alloc), start, to_alloc);
 	}
-	node->next = NULL;
-	free(tokens);
-	return (head);
-}
-
-t_lexer	*lexer(char *input)
-{
-	int     i;
-	char    **tokens;
-	t_lexer	*head;
-	t_lexer *temp;
-	i = 0;
-	// reminder : split returns an arry of pointers.
-	tokens = ft_split(input,' '); 
-	head = token_list(tokens);
-	temp = head;
-	while (temp != NULL)
-	{
-		if (temp->op == -1)	
-			printf("%s\n",temp->str);
-		else
-			printf("%u\n", temp->op);
-		temp = temp->next;
-	}
-	return head;
 }
