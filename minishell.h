@@ -29,13 +29,13 @@ typedef struct s_garbage_collector
 
 typedef enum e_operator
 {
-	QUOTE,
-	DOUBLE_QUOTE,
+	LESS_LESS, // <<
+	GREAT_GREAT, // >>
 	PIPE, // |
 	LESS, // <
 	GREAT, // > 
-	LESS_LESS, // <<
-	GREAT_GREAT, // >>
+	QUOTE,
+	DOUBLE_QUOTE,
 }				t_operator;
 
 typedef struct s_lexer
@@ -49,5 +49,7 @@ typedef struct s_lexer
 extern t_garbage_collector		*g_free;
 void	free_all(char *input);
 void	save_garbage(char **tokens, int is_arr);
+int		is_operator(char *str);
+char	*alloc_quote(char *str, int *i);
 t_lexer	*lexer(char *input);
 #endif

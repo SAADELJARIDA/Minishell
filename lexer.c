@@ -1,6 +1,6 @@
 #include "minishell.h"
 
-int	is_operator(char *str)
+t_operator	is_operator(char *str)
 {
 	t_operator	op;
 
@@ -46,6 +46,8 @@ static t_lexer *add_node(t_lexer **node)
 		// free_and_exit();
 		exit(0);
 	}
+	(*node)->str = NULL;
+	(*node)->op = NULL;
 	return (*node);
 }
 

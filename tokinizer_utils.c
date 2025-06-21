@@ -1,0 +1,46 @@
+#include "minishell.h"
+
+int	is_operator(char *str)
+{
+	t_operator	op;
+
+	if (ft_strncmp("<<", str, 2) == 0)
+		op = LESS_LESS; //0
+	else if (ft_strncmp(">>", str, 2) == 0)
+		op = GREAT_GREAT; //1
+	else if (ft_strncmp("|", str, 1) == 0)
+		op = PIPE; //2
+	else if (ft_strncmp("<", str, 1) == 0)
+		op = LESS; //3
+	else if (ft_strncmp(">", str, 1) == 0)
+		op = GREAT; //4
+	else if (ft_strncmp("\"", str, 1) == 0)
+		op = DOUBLE_QUOTE; //5
+	else if (ft_strncmp("\'", str, 1) == 0)
+		op = QUOTE; //6
+	else
+		return (-1);
+	return (op);
+}
+
+int	is_quotes(char *str)
+{
+	if (*(str) == '<' && *(str + 1) == '<'
+		|| *(str) == '>' && *(str + 1) == '>' )
+		return (2);
+	return (1);
+}
+char	*alloc_quote(char *str, int *i)
+{
+	int		len;
+	char	*alc_str;
+
+	len = 1;
+	while (str[len] != '\"')
+		len++;
+	alc_str = malloc(len + 2);
+	ft_strlcpy(alc_str, str, len + 2);
+	*i = *i + len;
+
+	return (alc_str);
+}
