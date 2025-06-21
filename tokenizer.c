@@ -52,12 +52,15 @@ t_lexer *tokenizer(char *input)
 			{
 				node =  add_node(&(node->next));
 				to_alloc = ft_substr(input , i, end + 1);
+				printf("%s\n",to_alloc);
 				fill_the_node(node, is_operator(to_alloc), i, to_alloc);
 				i = i + end;
 				break;
 			}
 			end++;
 		}
+		if (!input[i])
+			break;
 		if (is_operator(input + i) == DOUBLE_QUOTE)
 		{
 			node =  add_node(&(node->next));

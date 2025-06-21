@@ -24,4 +24,14 @@ int main()
 			print_op(temp->op, temp->str);
 		temp = temp->next;
 	}
+	temp = tokens;
+	while (tokens != NULL)
+	{
+		if (tokens->str != NULL)	
+			free(tokens->str);
+		temp = tokens;
+		tokens = tokens->next;
+		free(temp);	
+	}
+	free(input);
 }
