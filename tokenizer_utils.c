@@ -23,13 +23,13 @@ int	is_operator(char *str)
 	return (op);
 }
 
-int	is_quotes(char *str)
-{
-	if (*(str) == '<' && *(str + 1) == '<'
-		|| *(str) == '>' && *(str + 1) == '>' )
-		return (2);
-	return (1);
-}
+// int	is_quotes(char *str)
+// {
+// 	if (*(str) == '<' && *(str + 1) == '<'
+// 		|| *(str) == '>' && *(str + 1) == '>' )
+// 		return (2);
+// 	return (1);
+// }
 char	*alloc_quote(char *str, int *i)
 {
 	int		len;
@@ -43,4 +43,23 @@ char	*alloc_quote(char *str, int *i)
 	*i = *i + len;
 
 	return (alc_str);
+}
+
+void	print_op(t_operator op, char *str)
+{
+
+	if (op == 0)
+		printf("<<\n");
+	else if (op == 1)
+		printf(">>\n");
+	else if (op == 2)
+		printf("|\n");
+	else if (op == 3)
+		printf("<\n");
+	else if (op == 4)
+		printf(">\n");
+	else if (op == 5)
+		printf("\"\n");
+	else if (op == 6)
+		printf("\'\n");
 }

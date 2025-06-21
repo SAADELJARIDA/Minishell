@@ -51,5 +51,6 @@ void	free_all(char *input);
 void	save_garbage(char **tokens, int is_arr);
 int		is_operator(char *str);
 char	*alloc_quote(char *str, int *i);
-t_lexer	*lexer(char *input);
+void	print_op(t_operator op, char *str);
+t_lexer *tokenizer(char *input);
 #endif

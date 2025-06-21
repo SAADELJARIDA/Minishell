@@ -27,20 +27,16 @@ static t_lexer *add_node(t_lexer **node)
 }
 
 
-t_lexer *toknizer(char *input)
+t_lexer *tokenizer(char *input)
 {
-	size_t		start,end;
-	char		c;
+	size_t		end;
 	char		*to_alloc;
-	int			count;
-	t_operator	op;
 	t_lexer	*head;
 	t_lexer	*node;
+	t_lexer *temp;
 	int	i;
 
-	start = 0;
 	i = 0;
-
 	head = add_node(&node);
 	while (input[i])
 	{
@@ -57,7 +53,6 @@ t_lexer *toknizer(char *input)
 				node =  add_node(&(node->next));
 				to_alloc = ft_substr(input , i, end + 1);
 				fill_the_node(node, is_operator(to_alloc), i, to_alloc);
-				printf("%s\n" ,node->str);
 				i = i + end;
 				break;
 			}
@@ -68,21 +63,24 @@ t_lexer *toknizer(char *input)
 			node =  add_node(&(node->next));
 			to_alloc = alloc_quote(input + i, &i);
 			fill_the_node(node, -1, i, to_alloc);
-			printf("%s\n",node->str);
 		}
-		printf("is op: %d \n",is_operator("<<"));
 		if (is_operator(input + i) < 5 && is_operator(input + i) > -1)
 		{
-			printf("the char : %c\n",input[i]);
 			node =  add_node(&(node->next));
 			fill_the_node(node, is_operator(input + i), i, NULL);
-			printf("the op:%d\n",node->op);
+			if (is_operator(input + i) < 2)
+				i+=1;
 		}
 	 	i++;
 	}
+	node->next=NULL;	
+	temp = head;
+	head = head->next;
+	free(temp);
+	temp = head;
 	return head;
 }
-int main()
-{
-	toknizer("echo saad                \"helloworld\"$PATH\"salam labas\"\"saad eddine eljarida\"");
-}
+// int main()
+// {
+// 	toknizer("echo saad     >> \""    |    <<><|<<>><><>\"hell$PATHoworld\"$PATH\"salam labas\"\"saad eddine eljarida\"");
+// }
