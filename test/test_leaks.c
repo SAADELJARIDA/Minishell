@@ -9,7 +9,6 @@ int main()
     free(input);
 
     // Cleanup readline allocations (optional but useful for Valgrind)
-    rl_clear_history();
 	
     return 0;
 }

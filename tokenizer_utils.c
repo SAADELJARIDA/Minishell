@@ -30,24 +30,25 @@ int	is_operator(char *str)
 // 		return (2);
 // 	return (1);
 // }
-char	*alloc_quote(char *str, int *i)
+
+char	*alloc_quote_help(char *str, int *i)
 {
 	int		len;
 	char	*alc_str;
+	char	c;
 
 	len = 1;
-	while (str[len] != '\"')
+	c = *str;
+	while (str[len] != c)
 		len++;
 	alc_str = malloc(len + 2);
 	ft_strlcpy(alc_str, str, len + 2);
 	*i = *i + len;
-
 	return (alc_str);
 }
 
 void	print_op(t_operator op, char *str)
 {
-
 	if (op == 0)
 		printf("<<\n");
 	else if (op == 1)
@@ -62,4 +63,33 @@ void	print_op(t_operator op, char *str)
 		printf("\"\n");
 	else if (op == 6)
 		printf("\'\n");
+	else
+		printf("something else");
+}
+
+void	fill_the_node(t_lexer *node, int op, int i, char *token)
+{
+	node->i = i;
+	if (op != -1)
+	{
+		node->op = op;
+		node->str = NULL;	
+	}
+	else
+	{
+		node->op = -1; // -1 if it's no an operator 
+		node->str = token;	
+	}
+}
+
+t_lexer *add_node(t_lexer **node)
+{
+	*node = malloc(sizeof(t_lexer));
+	if (*node == NULL)
+	{
+		// free_and_exit();
+		exit(0);
+	}
+	(*node)->next = NULL;
+	return (*node);
 }

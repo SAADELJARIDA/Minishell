@@ -46,11 +46,14 @@ typedef struct s_lexer
 	struct s_lexer	*next;
 }				t_lexer;
 
-extern t_garbage_collector		*g_free;
-void	free_all(char *input);
-void	save_garbage(char **tokens, int is_arr);
+extern t_garbage_collector		*g_free;//
+void	free_all(char *input);//
+void	save_garbage(char **tokens, int is_arr);//
 int		is_operator(char *str);
-char	*alloc_quote(char *str, int *i);
-void	print_op(t_operator op, char *str);
+/* TOKENIZER */
+char	*alloc_quote_help(char *str, int *i);
+void	print_op(t_operator op, char *str);//
+void	fill_the_node(t_lexer *node, int op, int i, char *token);
 t_lexer *tokenizer(char *input);
+t_lexer *add_node(t_lexer **node);
 #endif

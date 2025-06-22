@@ -8,6 +8,7 @@ int main()
 	char	*input;
 	t_lexer *tokens;
 	t_lexer *temp;
+	int i = 0;
 
 	//signal_handler();
 	input = readline("\033[1;32m➜\033[0m\033[1;36m Minishell@damn:$\033[0m");
@@ -23,6 +24,7 @@ int main()
 		else
 			print_op(temp->op, temp->str);
 		temp = temp->next;
+		i++;
 	}
 	temp = tokens;
 	while (tokens != NULL)
