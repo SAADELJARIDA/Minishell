@@ -47,7 +47,7 @@ typedef struct s_lexer
 }				t_lexer;
 
 extern t_garbage_collector		*g_free;//
-void	free_all(char *input);//
+void	free_all(char *input, t_lexer *tokens);//
 void	save_garbage(char **tokens, int is_arr);//
 int		is_operator(char *str);
 /* TOKENIZER */

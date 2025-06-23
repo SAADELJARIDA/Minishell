@@ -27,13 +27,5 @@ int main()
 		i++;
 	}
 	temp = tokens;
-	while (tokens != NULL)
-	{
-		if (tokens->str != NULL)	
-			free(tokens->str);
-		temp = tokens;
-		tokens = tokens->next;
-		free(temp);	
-	}
-	free(input);
+	free_all(input, tokens);
 }
