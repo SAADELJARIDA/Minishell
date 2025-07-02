@@ -6,8 +6,8 @@ int main()
 {
 
 	char	*input;
-	t_lexer *tokens;
-	t_lexer *temp;
+	t_tokenizer *tokens;
+	t_tokenizer	*temp;
 	int i = 0;
 
 	//signal_handler();

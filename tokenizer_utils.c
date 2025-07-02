@@ -67,7 +67,7 @@ void	print_op(t_operator op, char *str)
 		printf("something else");
 }
 
-void	fill_the_node(t_lexer *node, int op, int i, char *token)
+void	fill_the_node(t_tokenizer *node, int op, int i, char *token)
 {
 	node->i = i;
 	if (op != -1)
@@ -82,7 +82,7 @@ void	fill_the_node(t_lexer *node, int op, int i, char *token)
 	}
 }
 
-t_lexer *add_node(t_lexer **node)
+t_tokenizer	*add_node(t_tokenizer **node)
 {
 	*node = malloc(sizeof(t_lexer));
 	if (*node == NULL)

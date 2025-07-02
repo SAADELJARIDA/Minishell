@@ -1,6 +1,6 @@
 #include "minishell.h"
 
-int	alloc_str(char *input, int *i, t_lexer **node)
+int	alloc_str(char *input, int *i, t_tokenizer **node)
 {
 	size_t		end;
 	char		*to_alloc;
@@ -25,7 +25,7 @@ int	alloc_str(char *input, int *i, t_lexer **node)
 	return (*i);
 }
 
-int	alloc_quote(int i, char *input, t_lexer **node)
+int	alloc_quote(int i, char *input, t_tokenizer **node)
 {
 	char	*to_alloc;
 
@@ -41,7 +41,7 @@ int	alloc_quote(int i, char *input, t_lexer **node)
 	return (i);
 }
 
-int	alloc_operator(int	*i, char *input, t_lexer **node)
+int	alloc_operator(int	*i, char *input, t_tokenizer **node)
 {
 	if (!input[*i])
 		return (*i);
@@ -55,11 +55,11 @@ int	alloc_operator(int	*i, char *input, t_lexer **node)
 	return (*i);
 }
 
-t_lexer	*tokenizer(char *input)
+t_tokenizer *tokenizer(char *input)
 {
-	t_lexer	*head;
-	t_lexer	*node;
-	t_lexer	*temp;
+	t_tokenizer	*head;
+	t_tokenizer	*node;
+	t_tokenizer	*temp;
 	int		i;
 
 	i = 0;

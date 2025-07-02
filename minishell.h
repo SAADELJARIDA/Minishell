@@ -19,13 +19,15 @@
 # define FALSE 2
 
 
-typedef struct s_garbage_collector
+
+typedef enum ast_nodetype
 {
-	int							is_arrof_p;
-	char						*content;
-	char						**d_content;
-	struct s_garbage_collector	*next;
-}				t_garbage_collector;
+	PIPE,
+	CMD,
+	AND,
+	OR,
+	WILDCARD,
+}			t_ast_nodetype;
 
 typedef enum e_operator
 {
@@ -38,13 +40,31 @@ typedef enum e_operator
 	DOUBLE_QUOTE,
 }				t_operator;
 
-typedef struct s_lexer
+typedef struct s_garbage_collector
 {
-	int				i;
-	char			*str;
-	t_operator		op;
-	struct s_lexer	*next;
-}				t_lexer;
+	int							is_arrof_p;
+	char						*content;
+	char						**d_content;
+	struct s_garbage_collector	*next;
+}				t_garbage_collector;
+
+typedef struct s_tokenizer
+{
+	int					i;
+	char				*str;
+	t_operator			op;
+	struct s_tokenizer	*next;
+}				t_tokenizer;
+
+
+typedef struct s_ast
+{
+	node_type		type;
+	char	
+	t_redirection *red;
+	struct s_ast	*right;
+	struct s_ast	*left;
+}				t_ast;
 
 extern t_garbage_collector		*g_free;//
 void	free_all(char *input, t_lexer *tokens);//
