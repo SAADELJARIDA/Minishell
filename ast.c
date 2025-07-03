@@ -1,18 +1,22 @@
 #include "minishell.h"
 
-char *node_to_str(t_tokenizer *token)
+t_tokenizer *add_tree_node(t_tokenizer *token, int pipe_i)
 {
-	char *str;
+	char 		*str;
+	int			i;
 
-	str = count_to_alloc(tokens);
-	if (ft_strncmp("echo", token->char, 5) == 0)
+	str = count_to_alloc(token);
+	if (ft_strncmp("echo", token->str, 5) == 0)
 	{
 		echo_handling();
 	}
-	while (token->op != 0)
+	i = 0;
+	while (i < pipe_i)
 	{
-		count_to_alloc(tokens);
+		
 	}
+	token = token->next;
+	return (token);
 }
 
 t_ast	*ast_builder(t_tokenizer *token)
@@ -20,12 +24,18 @@ t_ast	*ast_builder(t_tokenizer *token)
 	t_ast	*tree_head;
 	t_ast	*tree_node;
 	char	*cmd;
+	t_tokenizer	*cmd_head;
 
+	cmd_head = token;
+	check_no_pipe(token);
 	tree_node = malloc(sizeof(t_ast));
 	tree_head = tree_node;
 	// free&exit
 	while (token != NULL)
 	{
-		
+		if (token->op == 0)
+		{
+			cmd_head = add_tree_node(cmd_head, token->i);
+		}
 	}
 }
