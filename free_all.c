@@ -1,8 +1,8 @@
 #include "minishell.h"
 
-void    free_all(char *input, t_lexer *tokens)
+void    free_all(char *input, t_tokenizer *tokens)
 {
-	t_lexer	*temp;
+	t_tokenizer	*temp;
 	// int     i;
     //t_garbage_collector *tmp;
     // char    **temp;

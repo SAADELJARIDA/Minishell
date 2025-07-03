@@ -28,5 +28,8 @@ t_ast	*ast_builder(t_tokenizer *token)
 	{
 		str = node_to_str(token);
 		if ()
+		{
+
+		}
 	}
 }

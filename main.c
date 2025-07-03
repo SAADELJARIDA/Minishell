@@ -19,12 +19,14 @@ int main()
 	printf("_____________________\n");
 	while (temp != NULL)
 	{
+		printf("%d",temp->i);
 		if (temp->op == -1)	
 			printf("%s\n",temp->str);
 		else
 			print_op(temp->op, temp->str);
 		temp = temp->next;
 		i++;
+		printf("----------------\n");
 	}
 	temp = tokens;
 	free_all(input, tokens);

@@ -1,6 +1,6 @@
 #include "minishell.h"
 
-int	alloc_str(char *input, int *i, t_tokenizer **node)
+int	alloc_str(char *input, int *i, t_tokenizer **node, int node_i)
 {
 	size_t		end;
 	char		*to_alloc;
@@ -16,7 +16,7 @@ int	alloc_str(char *input, int *i, t_tokenizer **node)
 		{
 			*node = add_node(&((*node)->next));
 			to_alloc = ft_substr(input, *i, end + 1);
-			fill_the_node(*node, -1, *i, to_alloc);
+			fill_the_node(*node, -1, node_i, to_alloc);
 			*i = *i + end;
 			break ;
 		}
@@ -25,7 +25,7 @@ int	alloc_str(char *input, int *i, t_tokenizer **node)
 	return (*i);
 }
 
-int	alloc_quote(int i, char *input, t_tokenizer **node)
+int	alloc_quote(int i, char *input, t_tokenizer **node, int node_i)
 {
 	char	*to_alloc;
 
@@ -36,19 +36,19 @@ int	alloc_quote(int i, char *input, t_tokenizer **node)
 	{
 		*node = add_node(&((*node)->next));
 		to_alloc = alloc_quote_help(input + i, &i);
-		fill_the_node(*node, -1, i, to_alloc);
+		fill_the_node(*node, -1, node_i, to_alloc);
 	}
 	return (i);
 }
 
-int	alloc_operator(int	*i, char *input, t_tokenizer **node)
+int	alloc_operator(int	*i, char *input, t_tokenizer **node, int node_i)
 {
 	if (!input[*i])
 		return (*i);
 	if (is_operator(input + *i) < 5 && is_operator(input + *i) > -1)
 	{
 		*node = add_node(&((*node)->next));
-		fill_the_node(*node, is_operator(input + *i), *i, NULL);
+		fill_the_node(*node, is_operator(input + *i), node_i, NULL);
 		if (is_operator(input + *i) < 2)
 			*i += 1;
 	}
@@ -61,20 +61,24 @@ t_tokenizer *tokenizer(char *input)
 	t_tokenizer	*node;
 	t_tokenizer	*temp;
 	int		i;
+	int 	node_i;
 
 	i = 0;
+	node_i = 0;
 	head = add_node(&node);
 	while (input[i])
 	{
+
 		if (input[i] == ' ')
 		{
 			i++;
 			continue ;
 		}
-		i = alloc_str(input, &i, &node);
-		i = alloc_quote(i, input, &node);
-		i = alloc_operator(&i, input, &node);
+		i = alloc_str(input, &i, &node, node_i);
+		i = alloc_quote(i, input, &node, node_i);
+		i = alloc_operator(&i, input, &node, node_i);
 		i++;
+		node_i++;
 	}
 	node->next = NULL;
 	temp = head;

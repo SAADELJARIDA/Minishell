@@ -84,7 +84,7 @@ void	fill_the_node(t_tokenizer *node, int op, int i, char *token)
 
 t_tokenizer	*add_node(t_tokenizer **node)
 {
-	*node = malloc(sizeof(t_lexer));
+	*node = malloc(sizeof(t_tokenizer));
 	if (*node == NULL)
 	{
 		// free_and_exit();
