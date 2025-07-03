@@ -21,15 +21,11 @@ t_ast	*ast_builder(t_tokenizer *token)
 	t_ast	*tree_node;
 	char	*cmd;
 
-	tree_node = malloc(t_ast);
+	tree_node = malloc(sizeof(t_ast));
 	tree_head = tree_node;
 	// free&exit
 	while (token != NULL)
 	{
-		str = node_to_str(token);
-		if ()
-		{
-
-		}
+		
 	}
 }

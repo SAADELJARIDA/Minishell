@@ -56,24 +56,31 @@ typedef struct s_tokenizer
 	struct s_tokenizer	*next;
 }				t_tokenizer;
 
+typedef struct s_redirections
+{
+	t_operator		op;
+	int				file_fd;
+	struct s_redirections	*next;
+
+}			t_redirections;
 
 typedef struct s_ast
 {
-	node_type		type;
-	char	
-	t_redirection *red;
+	t_ast_nodetype		type;
+	char			*str;
+	t_redirections	*red;
 	struct s_ast	*right;
 	struct s_ast	*left;
 }				t_ast;
 
 extern t_garbage_collector		*g_free;//
-void	free_all(char *input, t_lexer *tokens);//
+void	free_all(char *input, t_tokenizer *tokens);//
 void	save_garbage(char **tokens, int is_arr);//
 int		is_operator(char *str);
 /* TOKENIZER */
 char	*alloc_quote_help(char *str, int *i);
 void	print_op(t_operator op, char *str);//
-void	fill_the_node(t_lexer *node, int op, int i, char *token);
-t_lexer *tokenizer(char *input);
-t_lexer *add_node(t_lexer **node);
+void	fill_the_node(t_tokenizer *node, int op, int i, char *token);
+t_tokenizer *tokenizer(char *input);
+t_tokenizer *add_node(t_tokenizer **node);
 #endif
