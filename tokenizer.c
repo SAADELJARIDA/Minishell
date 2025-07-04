@@ -16,7 +16,7 @@ int	alloc_str(char *input, int *i, t_tokenizer **node, int node_i)
 		{
 			*node = add_node(&((*node)->next));
 			to_alloc = ft_substr(input, *i, end + 1);
-			fill_the_node(*node, -1, node_i, to_alloc);
+			fill_the_node_str(*node, node_i, to_alloc, -1);
 			*i = *i + end;
 			break ;
 		}
@@ -28,15 +28,25 @@ int	alloc_str(char *input, int *i, t_tokenizer **node, int node_i)
 int	alloc_quote(int i, char *input, t_tokenizer **node, int node_i)
 {
 	char	*to_alloc;
+	t_quote	quote_state;
 
 	if (!input[i])
 		return (i);
+	quote_state = -1;
 	if (is_operator(input + i) == DOUBLE_QUOTE
 		|| is_operator(input + i) == QUOTE)
 	{
 		*node = add_node(&((*node)->next));
+		if (i != 0 && input[i - 1] == ' ')
+			quote_state	= SPACE_BEFORE; 
 		to_alloc = alloc_quote_help(input + i, &i);
-		fill_the_node(*node, -1, node_i, to_alloc);
+		if (input[i + 1] == ' ' && quote_state != -1)
+			quote_state = SPACE_BEFORE_AFTER;
+		else if (input[i + 1] == ' ' && quote_state == -1)
+			quote_state = SPACE_AFTER;
+		else if (input[i + 1] != ' ' && quote_state == -1)
+			quote_state = NO_SPACE;
+		fill_the_node_str(*node, node_i, to_alloc, quote_state);
 	}
 	return (i);
 }
@@ -48,7 +58,7 @@ int	alloc_operator(int	*i, char *input, t_tokenizer **node, int node_i)
 	if (is_operator(input + *i) < 5 && is_operator(input + *i) > -1)
 	{
 		*node = add_node(&((*node)->next));
-		fill_the_node(*node, is_operator(input + *i), node_i, NULL);
+		fill_the_node_op(*node, is_operator(input + *i), node_i);
 		if (is_operator(input + *i) < 2)
 			*i += 1;
 	}

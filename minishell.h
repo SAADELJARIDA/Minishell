@@ -22,7 +22,7 @@
 
 typedef enum ast_nodetype
 {
-	PIPE,
+	//PIPE,
 	CMD,
 	AND,
 	OR,
@@ -40,6 +40,14 @@ typedef enum e_operator
 	DOUBLE_QUOTE,
 }				t_operator;
 
+typedef enum e_quote
+{
+	NO_SPACE,
+	SPACE_BEFORE,
+	SPACE_AFTER,
+	SPACE_BEFORE_AFTER,
+}			t_quote;
+
 typedef struct s_garbage_collector
 {
 	int							is_arrof_p;
@@ -52,6 +60,7 @@ typedef struct s_tokenizer
 {
 	int					i;
 	char				*str;
+	t_quote				quote_state;
 	t_operator			op;
 	struct s_tokenizer	*next;
 }				t_tokenizer;
@@ -80,7 +89,8 @@ int		is_operator(char *str);
 /* TOKENIZER */
 char	*alloc_quote_help(char *str, int *i);
 void	print_op(t_operator op, char *str);//
-void	fill_the_node(t_tokenizer *node, int op, int i, char *token);
+void	fill_the_node_str(t_tokenizer *node, int i, char *token, t_quote quote_state);
+void	fill_the_node_op(t_tokenizer *node, int op, int i);
 t_tokenizer *tokenizer(char *input);
 t_tokenizer *add_node(t_tokenizer **node);
 #endif

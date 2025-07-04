@@ -67,21 +67,21 @@ void	print_op(t_operator op, char *str)
 		printf("something else");
 }
 
-void	fill_the_node(t_tokenizer *node, int op, int i, char *token)
+void	fill_the_node_op(t_tokenizer *node, int op, int i)
 {
 	node->i = i;
-	if (op != -1)
-	{
-		node->op = op;
-		node->str = NULL;	
-	}
-	else
-	{
-		node->op = -1; // -1 if it's no an operator 
-		node->str = token;	
-	}
+	node->op = op;
+	node->str = NULL;	
+	node->quote_state = -1;
 }
 
+void	fill_the_node_str(t_tokenizer *node, int i, char *token, t_quote quote_state)
+{
+	node->i = i;
+	node->op = -1; // -1 if it's no an operator 
+	node->str = token;	
+	node->quote_state = quote_state;
+}
 t_tokenizer	*add_node(t_tokenizer **node)
 {
 	*node = malloc(sizeof(t_tokenizer));

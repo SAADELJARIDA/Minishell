@@ -20,8 +20,11 @@ int main()
 	while (temp != NULL)
 	{
 		printf("%d",temp->i);
-		if (temp->op == -1)	
+		if (temp->op == -1)
+		{
 			printf("%s\n",temp->str);
+			printf("%d\n",temp->quote_state);
+		}
 		else
 			print_op(temp->op, temp->str);
 		temp = temp->next;
