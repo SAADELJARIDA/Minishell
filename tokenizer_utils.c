@@ -23,14 +23,6 @@ int	is_operator(char *str)
 	return (op);
 }
 
-// int	is_quotes(char *str)
-// {
-// 	if (*(str) == '<' && *(str + 1) == '<'
-// 		|| *(str) == '>' && *(str + 1) == '>' )
-// 		return (2);
-// 	return (1);
-// }
-
 char	*alloc_quote_help(char *str, int *i)
 {
 	int		len;
@@ -49,19 +41,19 @@ char	*alloc_quote_help(char *str, int *i)
 
 void	print_op(t_operator op, char *str)
 {
-	if (op == 0)
+	if (op == LESS_LESS)
 		printf("<<\n");
-	else if (op == 1)
+	else if (op == GREAT_GREAT)
 		printf(">>\n");
-	else if (op == 2)
+	else if (op == PIPE)
 		printf("|\n");
-	else if (op == 3)
+	else if (op == LESS)
 		printf("<\n");
-	else if (op == 4)
+	else if (op == GREAT)
 		printf(">\n");
-	else if (op == 5)
+	else if (op == DOUBLE_QUOTE)
 		printf("\"\n");
-	else if (op == 6)
+	else if (op == QUOTE)
 		printf("\'\n");
 	else
 		printf("something else");
@@ -71,25 +63,15 @@ void	fill_the_node_op(t_tokenizer *node, int op, int i)
 {
 	node->i = i;
 	node->op = op;
-	node->str = NULL;	
+	node->str = NULL;
 	node->quote_state = -1;
 }
 
-void	fill_the_node_str(t_tokenizer *node, int i, char *token, t_quote quote_state)
+void	fill_the_node_str(t_tokenizer *node, int i, char *token,
+		t_quote quote_state)
 {
 	node->i = i;
 	node->op = -1; // -1 if it's no an operator 
-	node->str = token;	
+	node->str = token;
 	node->quote_state = quote_state;
-}
-t_tokenizer	*add_node(t_tokenizer **node)
-{
-	*node = malloc(sizeof(t_tokenizer));
-	if (*node == NULL)
-	{
-		// free_and_exit();
-		exit(0);
-	}
-	(*node)->next = NULL;
-	return (*node);
 }

@@ -20,24 +20,19 @@
 
 
 
-typedef enum ast_nodetype
-{
-	//PIPE,
-	CMD,
-	AND,
-	OR,
-	WILDCARD,
-}			t_ast_nodetype;
-
 typedef enum e_operator
 {
-	LESS_LESS, // <<
-	GREAT_GREAT, // >>
-	PIPE, // |
-	LESS, // <
-	GREAT, // > 
+	LESS_LESS,
+	GREAT_GREAT,
+	LESS,
+	GREAT,
+	PIPE,
 	QUOTE,
 	DOUBLE_QUOTE,
+	OR,
+	AND,
+	CMD,
+	WILDCARD,
 }				t_operator;
 
 typedef enum e_quote
@@ -75,16 +70,17 @@ typedef struct s_redirections
 
 typedef struct s_ast
 {
-	t_ast_nodetype		type;
-	char			*str;
-	t_redirections	*red;
+	t_operator 		type;
+	t_redirections	*rdc;
+	t_tokenizer		*cmd_line;
+	char			*cmd;
 	struct s_ast	*right;
 	struct s_ast	*left;
 }				t_ast;
 
-extern t_garbage_collector		*g_free;//
-void	free_all(char *input, t_tokenizer *tokens);//
-void	save_garbage(char **tokens, int is_arr);//
+extern t_garbage_collector		*g_free;
+void	free_all(char *input, t_tokenizer *tokens);
+void	save_garbage(char **tokens, int is_arr);
 int		is_operator(char *str);
 /* TOKENIZER */
 char	*alloc_quote_help(char *str, int *i);
