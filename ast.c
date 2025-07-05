@@ -17,23 +17,12 @@ t_ast *add_tree_node(void)
 	tree_node->left = NULL;
 	return (tree_node);
 }
-
-t_tokenizer *fill_tree_node(t_tokenizer *cmd_line)
+void	handle_redirections(t_ast *tree_node, t_tokenizer *cmd_line)
 {
-	t_ast			*tree_node;
 	t_redirections	*rdc;
-
-	tree_node = malloc(sizeof(t_ast));
-	tree_node->type = CMD;
-	if (ft_strncmp("echo", cmd_line->str, 5) == 0)
-	{
-		echo_handling();
-	}
-	tree_node->cmd = cmd_line->str;
-	tree_node->cmd_line = cmd_line;
 	rdc = malloc(sizeof(t_redirections));
 	tree_node->rdc = rdc;
-	while (cmd_line->str != NULL && cmd_line->str[0] != '|')
+	while (cmd_line->str != NULL && cmd_line->op != PIPE)
 	{
 		if (is_operator(cmd_line->op) < PIPE)
 		{
@@ -43,17 +32,26 @@ t_tokenizer *fill_tree_node(t_tokenizer *cmd_line)
 			rdc = malloc(sizeof(t_redirections));	
 			rdc->type = cmd_line->op;
 			if (ft_isalpha(cmd_line->next->str[0]) != 0)
-			{
 				rdc->str = cmd_line->next->str;
-			}
 			else
 			{
 				//free_and_exit error;
-				return (NULL)
+				return (NULL);
 			}
 			cmd_line = cmd_line->next->next;
 		}
 	}
+}
+t_ast *fill_tree_node(t_tokenizer *cmd_line)
+{
+	t_ast			*tree_node;
+	t_redirections	*rdc;
+
+	tree_node = malloc(sizeof(t_ast));
+	tree_node->type = CMD;
+	tree_node->cmd = cmd_line->str;
+	tree_node->cmd_line = cmd_line;
+	handle_redirections(tree_node, cmd_line);
 	return (tree_node);
 }
 
@@ -72,15 +70,12 @@ t_ast	*ast_builder(t_tokenizer *token)
 	while (token != NULL)
 	{
 		if (token->next == NULL)
-		{
-			tree_node->left = fill_tree_node(cmd_head);
-			cmd_head = token->next;
-		}
+			tree_node->right = fill_tree_node(cmd_head);
 		if (token->op == PIPE)
 		{
 			tree_node->type = PIPE;
-			tree_node->right = fill_tree_node(cmd_head);
-			tree_node = tree_node->left;
+			tree_node->left = fill_tree_node(cmd_head);
+			tree_node = tree_node->right;
 			cmd_head = token->next;
 		}
 		token = token->next;

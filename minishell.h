@@ -45,10 +45,10 @@ typedef enum e_quote
 
 typedef struct s_garbage_collector
 {
-	int							is_arrof_p;
-	char						*content;
-	char						**d_content;
-	struct s_garbage_collector	*next;
+	t_ast			*tree_node;
+	t_tokenizer		*token;
+	t_redirections	*rdc;
+
 }				t_garbage_collector;
 
 typedef struct s_tokenizer
