@@ -62,7 +62,8 @@ typedef struct s_tokenizer
 
 typedef struct s_redirections
 {
-	t_operator		op;
+	t_operator		type;
+	char			*str;
 	int				file_fd;
 	struct s_redirections	*next;
 
@@ -89,4 +90,5 @@ void	fill_the_node_str(t_tokenizer *node, int i, char *token, t_quote quote_stat
 void	fill_the_node_op(t_tokenizer *node, int op, int i);
 t_tokenizer *tokenizer(char *input);
 t_tokenizer *add_node(t_tokenizer **node);
+
 #endif
